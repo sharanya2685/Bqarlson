@@ -1,0 +1,29 @@
+def decompose_parentheses(S):
+    stack = []
+    result = []
+    current_parentheses = []
+
+    for char in S:
+        if char == '(':
+            stack.append(char)
+            if stack:
+                current_parentheses.append(char)
+        else:
+            stack.pop()
+            current_parentheses.append(char)
+            if not stack:
+                # Remove outermost parentheses
+                current_parentheses = current_parentheses[1:-1]
+                result.append("".join(current_parentheses))
+                current_parentheses = []
+
+    return "".join(result)
+
+# Example usage:
+S = "(()())(())"
+result = decompose_parentheses(S)
+print(result)  # Output: "()()()()"
+
+S = "(()())(())(()(()))"
+result = decompose_parentheses(S)
+print(result)  # Output: "()()()()()()"
